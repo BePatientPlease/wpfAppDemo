@@ -9,6 +9,7 @@ namespace WpfAppDemo
     /// </summary>
     public partial class App : Application
     {
+        //Test Tag
     }
 
 }
