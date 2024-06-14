@@ -10,7 +10,7 @@ jobs:
         runs-on: windows-latest
         steps:
             - name: Checkout code
-              uses: action/checkout@v3
+              uses: action/checkout@v2
         
             - name: Setup .NET SDK
               uses: action/setup-dotnet@v3
