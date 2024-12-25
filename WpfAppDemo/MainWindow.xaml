@@ -18,11 +18,25 @@
     WindowStartupLocation="Manual"
     WindowStyle="None"
     mc:Ignorable="d">
-
     <Grid Background="Transparent">
-        <StackPanel x:Name="spTitle" VerticalAlignment="Center" Background="White" MouseLeftButtonDown="Label_MouseLeftButtonDown" MouseRightButtonDown="spTitle_MouseRightButtonDown" Orientation="Vertical">
+        <StackPanel
+            x:Name="spTitle"
+            Width="70"
+            Height="45"
+            VerticalAlignment="Center"
+            Background="White"
+            MouseLeftButtonDown="Label_MouseLeftButtonDown"
+            MouseRightButtonDown="spTitle_MouseRightButtonDown"
+            Orientation="Vertical">
             <Label HorizontalAlignment="Center" Content="压机位移2" />
-            <Label HorizontalAlignment="Center" Content="Value" />
+            <Label
+                Margin="0,-5"
+                Padding="0"
+                HorizontalAlignment="Center"
+                BorderBrush="Black"
+                BorderThickness="0"
+                Content="-8888.8"
+                FontSize="20" />
         </StackPanel>
     </Grid>
 

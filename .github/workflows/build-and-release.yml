@@ -1,27 +1,57 @@
 name: Build and Release WPF App
+
 on:
-    push:
-       # branches:
-       #     - main #
-        tags:
-            - 'v*'
+  push:
+    tags:
+      - 'v*'
+
 jobs:
-    build:
-        runs-on: windows-latest
-        steps:
-            - name: Checkout code
-              uses: action/checkout@v2
-        
-            - name: Setup .NET SDK
-              uses: action/setup-dotnet@v3
-              with: 
-                dontet-version: '8.0.x'
-            
-            - name: Build and Pack WPF Application
-              run: |
-                dotnet resotre
-                dotnet build -c Release
+  build:
+    runs-on: windows-latest
 
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
 
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.0.x' # Adjust to your .NET version
 
-        
+    - name: Generate Version Number
+      id: get_version
+      run: |
+        echo "VERSION=$(git describe --tags)" >> $GITHUB_OUTPUT
+
+    - name: Restore NuGet Packages
+      run: dotnet restore
+
+    - name: Build Solution
+      run: dotnet build --configuration Release /p:Version=$(echo ${GITHUB_REF#refs/tags/})
+
+    - name: Pack Application
+      run: |
+        # Use a tool like 7-Zip or PowerShell to package the output
+        Compress-Archive -Path .\YourApp\bin\Release\* -DestinationPath YourApp-${{ steps.get_version.outputs.VERSION }}.zip
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.get_version.outputs.VERSION }}
+        release_name: Release ${{ steps.get_version.outputs.VERSION }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./YourApp-${{ steps.get_version.outputs.VERSION }}.zip
+        asset_name: YourApp-${{ steps.get_version.outputs.VERSION }}.zip
+        asset_content_type: application/zip

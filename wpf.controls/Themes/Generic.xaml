@@ -1,0 +1,47 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:wpf.controls">
+
+
+
+
+    <RadialGradientBrush x:Key="lightColor" GradientOrigin="0.5,0.5">
+        <GradientStop Offset="0.3" Color="#90ee90" />
+        <GradientStop Offset="0" Color="#FFFFFF" />
+    </RadialGradientBrush>
+    <DropShadowEffect
+        x:Key="Shaow"
+        x:Name="shadowLight"
+        BlurRadius="40"
+        ShadowDepth="2"
+        Color="#90ee90" />
+    <SolidColorBrush x:Key="darkColor" Color="#002200" />
+    <Style TargetType="{x:Type local:Lamp}">
+        <Setter Property="Width" Value="30" />
+        <Setter Property="Width" Value="30" />
+        <Setter Property="CornerRadius" Value="15" />
+        <Setter Property="Background" Value="{StaticResource darkColor}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:Lamp}">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}" />
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsLight" Value="True">
+                            <Setter Property="Background" Value="{StaticResource lightColor}" />
+                            <Setter Property="Effect" Value="{StaticResource Shaow}" />
+                        </Trigger>
+                        <Trigger Property="IsLight" Value="False">
+                            <Setter Property="Background" Value="{StaticResource darkColor}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+</ResourceDictionary>
