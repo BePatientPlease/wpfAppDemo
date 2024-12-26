@@ -21,7 +21,6 @@ jobs:
     - name: Generate Version Number
       id: get_version
       run: |
-        echo "VERSION=$(git describe --tags)"
         echo "VERSION=$(git describe --tags)" >> $GITHUB_OUTPUT
 
     - name: Restore NuGet Packages
@@ -39,7 +38,7 @@ jobs:
       run: |
         echo "version = ${{ steps.get_version.outputs.VERSION }}" 
         # Use a tool like 7-Zip or PowerShell to package the output
-        Compress-Archive -Path .\WpfAppDemo\bin\Release\* -DestinationPath WpfAppDemo-${{ github.ref_name }}".zip
+        Compress-Archive -Path .\WpfAppDemo\bin\Release\* -DestinationPath WpfAppDemo-${{ github.ref_name }}.zip
 
     - name: Create Release
       id: create_release
