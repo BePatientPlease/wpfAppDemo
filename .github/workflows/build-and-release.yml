@@ -30,9 +30,7 @@ jobs:
     - name: Build Solution
   
       run: |
-        echo ${{ github.ref_name }}
-        echo "tag=${GITHUB_REF#refs/*/}"
-        echo "${GITHUB_REF#refs/tags/}"
+        echo "${{ github.ref_name }}.Substring(0,1)"
         dotnet build --configuration Release /p:Version=$(echo ${GITHUB_REF#refs/tags/})
 
     - name: Pack Application
