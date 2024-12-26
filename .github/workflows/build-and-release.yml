@@ -37,8 +37,9 @@ jobs:
 
     - name: Pack Application
       run: |
+        echo "version = ${{ steps.get_version.outputs.VERSION }}" 
         # Use a tool like 7-Zip or PowerShell to package the output
-        Compress-Archive -Path .\WpfAppDemo\bin\Release\* -DestinationPath WpfAppDemo-${{ steps.get_version.outputs.VERSION }}.zip
+        Compress-Archive -Path .\WpfAppDemo\bin\Release\* -DestinationPath WpfAppDemo-${{ github.ref_name }}".zip
 
     - name: Create Release
       id: create_release
@@ -46,8 +47,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.get_version.outputs.VERSION }}
-        release_name: Release ${{ steps.get_version.outputs.VERSION }}
+        tag_name: ${{ github.ref_name }}
+        release_name: Release ${{ github.ref_name }}
         draft: false
         prerelease: false
 
