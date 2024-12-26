@@ -30,7 +30,7 @@ jobs:
     - name: Build Solution
   
       run: |
-        $name=${{ github.ref_name }}
+        $name="${{ github.ref_name }}"
         $version=$name.Substring(1,$name.Length-1)
         echo $version
         dotnet build --configuration Release /p:Version=$(echo ${GITHUB_REF#refs/tags/})
