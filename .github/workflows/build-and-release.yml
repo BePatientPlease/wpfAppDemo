@@ -33,7 +33,7 @@ jobs:
         $name="${{ github.ref_name }}"
         $version=$name.Substring(1,$name.Length-1)
         echo $version
-        dotnet build --configuration Release /p:Version=$(echo ${GITHUB_REF#refs/tags/})
+        dotnet build --configuration Release /p:Version=$version
 
     - name: Pack Application
       run: |
