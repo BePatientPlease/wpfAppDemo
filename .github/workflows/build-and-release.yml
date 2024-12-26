@@ -38,7 +38,7 @@ jobs:
     - name: Pack Application
       run: |
         # Use a tool like 7-Zip or PowerShell to package the output
-        Compress-Archive -Path .\YourApp\bin\Release\* -DestinationPath YourApp-${{ steps.get_version.outputs.VERSION }}.zip
+        Compress-Archive -Path .\WpfAppDemo\bin\Release\* -DestinationPath WpfAppDemo-${{ steps.get_version.outputs.VERSION }}.zip
 
     - name: Create Release
       id: create_release
